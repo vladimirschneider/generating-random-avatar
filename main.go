@@ -1,4 +1,4 @@
-package main
+package generating_random_avatar
 
 import (
 	"fmt"
@@ -7,7 +7,6 @@ import (
 	"image/png"
 	"math/rand"
 	"os"
-	"strconv"
 	"time"
 )
 
@@ -15,13 +14,7 @@ const avatarSize = 800
 
 const brushSize = 80
 
-func main() {
-	count := 1
-
-	if len(os.Args) == 2 {
-		count, _ = strconv.Atoi(os.Args[1])
-	}
-
+func GenerateAvatar(count int) {
 	for i := 0; i < count; i++ {
 		rand.Seed(time.Now().UnixNano())
 
