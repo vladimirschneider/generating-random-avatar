@@ -1,11 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"image/png"
 	"math/rand"
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -14,16 +16,25 @@ const avatarSize = 800
 const brushSize = 80
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
+	count := 1
 
-	avatar := image.NewRGBA(image.Rect(0, 0, avatarSize, avatarSize))
-	PainBG(avatar, GenerateBGColor())
-	PaintAvatar(avatar, GenerateAvatarColor())
-	SavePNG(avatar)
+	if len(os.Args) == 2 {
+		count, _ = strconv.Atoi(os.Args[1])
+	}
+
+	for i := 0; i < count; i++ {
+		rand.Seed(time.Now().UnixNano())
+
+		avatar := image.NewRGBA(image.Rect(0, 0, avatarSize, avatarSize))
+		PainBG(avatar, GenerateBGColor())
+		PaintAvatar(avatar, GenerateAvatarColor())
+
+		SavePNG(avatar, fmt.Sprint("avatar_", i + 1))
+	}
 }
 
-func SavePNG(avatar image.Image) {
-	file, err := os.Create("avatar.png")
+func SavePNG(avatar image.Image, name string) {
+	file, err := os.Create(name + ".png")
 	err  = png.Encode(file, avatar)
 
 	if err != nil {
