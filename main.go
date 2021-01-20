@@ -9,9 +9,9 @@ import (
 	"time"
 )
 
-const avatarSize = 1000
+const avatarSize = 800
 
-const brushSize = 50
+const brushSize = 80
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
